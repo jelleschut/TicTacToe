@@ -5,10 +5,11 @@ public class Game {
     private boolean simulation;
     private boolean isGameRunning;
     private int activePlayer;
+    private final int size = 3;
 
     Game() {
         view = new View();
-        board = new Board(3);
+        board = new Board(size);
 
         initGame();
         initPlayers();
@@ -23,15 +24,18 @@ public class Game {
         players = new Player[2];
 
         if (view.getYesNo("Simulate")) {
-            players[0] = new AI(Piece.X, board);
-            players[1] = new AI(Piece.O, board);
+            boolean hardMode = view.getYesNo("AI 1 Hard Mode");
+            players[0] = new AI(Piece.X, board, hardMode);
+            hardMode = view.getYesNo("AI 2 Hard Mode");
+            players[1] = new AI(Piece.O, board, hardMode);
             simulation = true;
         } else {
-            players[1] = new AI(Piece.X, board);
+            players[0] = new Human(Piece.X);
             if (view.getYesNo("Human opponent")) {
                 players[1] = new Human(Piece.O);
             } else {
-                players[1] = new AI(Piece.O, board);
+                boolean hardMode = view.getYesNo("AI 1 Hard Mode");
+                players[1] = new AI(Piece.O, board, hardMode);
             }
         }
         activePlayer = 0;
@@ -47,10 +51,10 @@ public class Game {
             if (board.isWon() || board.isDraw()) {
                 if (board.isWon()) {
                     players[activePlayer].increaseScore();
-
                     view.drawScore(players);
                     view.drawBoard(board);
                 }
+
                 if (simulation) {
                     board.clear();
                 } else if (view.getYesNo("New Game")) {

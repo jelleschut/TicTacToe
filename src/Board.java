@@ -27,7 +27,7 @@ public class Board {
     public boolean isDraw() {
         for (Piece[] arr : board) {
             for (Piece p : arr) {
-                if (p != Piece.NONE) {
+                if (p == Piece.NONE) {
                     return false;
                 }
             }
@@ -70,7 +70,7 @@ public class Board {
         }
 
         for (int i = 0; i < size - 1 && board[i][i] != Piece.NONE; i++) {
-            if (board[i+1][size - 1 - i - 1] != board[0][size - 1]) {
+            if (board[i + 1][size - 1 - i - 1] != board[0][size - 1]) {
                 break;
             }
             if (i == size - 1 - 1) {
@@ -90,11 +90,21 @@ public class Board {
         return false;
     }
 
+    public void unSetPiece(int[] coordinates) {
+        if (isInBounds(coordinates)) {
+            board[coordinates[0]][coordinates[1]] = Piece.NONE;
+        }
+    }
+
     public int getSize() {
         return size;
     }
 
     public Piece getPiece(int x, int y) {
         return board[x][y];
+    }
+
+    public Piece[][] getBoard() {
+        return board;
     }
 }

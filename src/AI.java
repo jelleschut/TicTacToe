@@ -3,13 +3,19 @@ import java.util.Random;
 
 public class AI extends Player {
     private Board board;
+    private boolean hardMode;
 
-    AI(Piece piece, Board board){
+    AI(Piece piece, Board board, boolean hardMode){
         super(piece);
         this.board = board;
+        this.hardMode = hardMode;
     }
 
     public int[] tryMove() {
+        if(hardMode) {
+            return new MiniMax(this).getBestMove(board);
+        }
+
         Random r = new Random();
         ArrayList<int[]> possibleMoves = new ArrayList<>();
 
@@ -21,7 +27,6 @@ public class AI extends Player {
                 }
             }
         }
-
         return possibleMoves.get(r.nextInt(possibleMoves.size()));
     }
 }

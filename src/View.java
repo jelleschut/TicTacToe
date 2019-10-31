@@ -8,13 +8,13 @@ public class View {
     }
 
     public boolean getYesNo(String question) {
-        String answer = "";
+        char[] answer;
         do {
             System.out.print(question + "? (Y/N): ");
-            answer = s.next().toLowerCase();
-        } while (!answer.equals("y") && !answer.equals("n"));
+            answer = s.nextLine().toLowerCase().toCharArray();
+        } while (answer[0] != 'y' && answer[0] != 'n');
 
-        return answer.equals("y");
+        return answer[0] == 'y';
     }
 
     public void drawScore(Player[] players) {
