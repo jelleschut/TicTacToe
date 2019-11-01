@@ -1,8 +1,10 @@
+package game;
+
 public abstract class Player {
     private int score;
     private Piece piece;
 
-    Player(Piece piece) {
+    public Player(Piece piece) {
         this.piece = piece;
         score = 0;
     }
@@ -23,6 +25,6 @@ public abstract class Player {
 
     @Override
     public String toString() {
-        return "Player " + piece;
+        return "game.Player " + piece;
     }
 }

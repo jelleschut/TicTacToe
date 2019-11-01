@@ -1,8 +1,10 @@
+package game;
+
 public class MiniMax {
     private Piece playerPiece;
     private Piece[] pieces = {Piece.X, Piece.O};
 
-    MiniMax(Player player) {
+    public MiniMax(Player player) {
         this.playerPiece = player.getPiece();
     }
 
@@ -15,7 +17,7 @@ public class MiniMax {
         }
 
         if (board.isWon()) {
-            return isMax ? 10 - depth : -10 + depth;
+            return isMax ? 100 - depth : -100 + depth;
         }
 
         if (isMax) {
@@ -31,12 +33,18 @@ public class MiniMax {
         for (int i = 0; i < board.getSize(); i++) {
             for (int j = 0; j < board.getSize(); j++) {
                 if (board.getPiece(i, j) == Piece.NONE) {
-                    board.setPiece(new int[]{i, j}, currentPiece);
+                    try {
+                        board.setPiece(new int[]{i, j}, currentPiece);
+                    } catch (InvalidMoveException ime) {
+                        System.out.println(ime.getMessage());
+                    }
+
                     if (isMax) {
                         best = Math.max(best, miniMax(board, depth + 1, false));
                     } else {
                         best = Math.min(best, miniMax(board, depth + 1, true));
                     }
+
                     board.unSetPiece(new int[]{i, j});
                 }
             }

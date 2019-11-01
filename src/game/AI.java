@@ -1,3 +1,5 @@
+package game;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -5,7 +7,7 @@ public class AI extends Player {
     private Board board;
     private boolean hardMode;
 
-    AI(Piece piece, Board board, boolean hardMode){
+    public AI(Piece piece, Board board, boolean hardMode){
         super(piece);
         this.board = board;
         this.hardMode = hardMode;

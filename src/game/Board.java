@@ -1,8 +1,10 @@
+package game;
+
 public class Board {
     private int size;
     private Piece[][] board;
 
-    Board(int size) {
+    public Board(int size) {
         this.size = size;
         board = new Piece[size][size];
         clear();
@@ -80,12 +82,14 @@ public class Board {
         return false;
     }
 
-    public boolean setPiece(int[] coordinates, Piece piece) {
-        if (isInBounds(coordinates)) {
+    public boolean setPiece(int[] coordinates, Piece piece) throws InvalidMoveException {
+        try {
             if (isAvailable(coordinates)) {
                 board[coordinates[0]][coordinates[1]] = piece;
                 return true;
             }
+        } catch (ArrayIndexOutOfBoundsException aioobe) {
+            throw new InvalidMoveException(aioobe.toString());
         }
         return false;
     }

@@ -1,7 +1,9 @@
+package game;
+
 public enum Piece {
     X("X"),
     O("O"),
-    NONE(" ");
+    NONE("_");
 
     private String piece;
 
